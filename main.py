@@ -1,7 +1,6 @@
 from flask import Flask, Response, render_template, request, jsonify
 import tweepy 
 
-
 app = Flask(
   __name__, 
   template_folder='templates',
@@ -17,7 +16,7 @@ def index():
 @app.route('/user/', methods=['POST'])
 def user():
    
-    print("User function in main.py has been run ")
+    print("User function in main.python has been run ")
     resp = Response("user pivot")
     resp.headers['Access-Control-Allow-Origin'] = '*'
     # get HTTP request body & use user name for something

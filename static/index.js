@@ -1,8 +1,8 @@
-console.log('hi');
+console.log('Print test before async func call');
 
 async function getTwitterUser(username) {
   try {
-    var res = await fetch('http://localhost:8080/', {
+    var res = await fetch('http://localhost:8080', {
       // this will be your heroku domain
       method: 'POST',
       mode: 'no-cors',
@@ -16,11 +16,10 @@ async function getTwitterUser(username) {
     })
     console.log(res);
   } catch (err) {
-    console.log('uh oh', err)
+    console.log('Issue with line 20 index.js', err)
   }
 }
 
 
-
 getTwitterUser('scena360');
-console.log('test');
+console.log('after all function callls in index.js');

@@ -23,4 +23,4 @@ async function getTwitterUser(username) {
 
 
 getTwitterUser('scena360');
-console.log('test')
+console.log('test');

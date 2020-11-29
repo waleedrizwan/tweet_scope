@@ -16,16 +16,15 @@ def index():
 # gets invoked when user makes HTTP post request to <url>/user/
 @app.route('/user/', methods=['POST'])
 def user():
-
+   
+    print("User function in main.py has been run ")
     resp = Response("user pivot")
     resp.headers['Access-Control-Allow-Origin'] = '*'
     # get HTTP request body & use user name for something
-    # call your twitter scripts here
-    print("FUCK TEST")
+    # call your twitter scripts here  
   
     print(request.json)
   
- 
     def userTweet(arg):
 
       '''

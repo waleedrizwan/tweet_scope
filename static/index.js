@@ -2,7 +2,7 @@ console.log('hi');
 
 async function getTwitterUser(username) {
   try {
-    var res = await fetch('http://localhost:8080', {
+    var res = await fetch('http://localhost:8080/', {
       // this will be your heroku domain
       method: 'POST',
       mode: 'no-cors',
@@ -23,4 +23,4 @@ async function getTwitterUser(username) {
 
 
 getTwitterUser('scena360');
-console.log('hi')
+console.log('test')

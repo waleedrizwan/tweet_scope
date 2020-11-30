@@ -1,14 +1,41 @@
-<html>
-  <head>
-    <script src="/static/index.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Twitter Scope</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="/static/index.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+</head>
+<body>
 
-  </head>
-  <body>
+<div class="jumbotron text-center">
+  <h1>Welcome to Tweet Scope</h1>
+  
+  <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center">
+</div>
 
-    <p> hello world </p>
-    <p> hello world </p>
-    <div id="body"></div>
 
 
-  </body>
-</html>
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" class ="left-align">Filter Tweets By
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a >Username</a></li>
+    <li><a >Hashtag</a></li>
+    <li><a >Retweets by Username</a></li>
+    <li><a >Favorites by Username</a></li>
+  </ul>
+</div>
+
+
+<p> <div id="body"></div> </p>  
+
+
+</body>
+
+
+

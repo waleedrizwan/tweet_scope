@@ -12,3 +12,4 @@ to do
 BONUS
 - export to excel? 
 - add column for sentiment anaylsis ?
+- for each tweet give the option to view the retweets

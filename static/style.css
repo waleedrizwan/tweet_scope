@@ -1,10 +1,57 @@
-.float-container {
-    border: 3px solid #fff;
-    padding: 10px
-}
+ .float-container {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+} 
 
-.float-child {
+
+/* .float-child {
     width: 33%;
     float: left;
-    padding: 1px  
+    padding: 0px;
+    border: 2px solid red;
+       
 }
+
+
+.data {
+    padding: 10px;
+    margin: 20px;
+
+}
+
+
+
+ */
+
+
+input {
+    height: 2pc;
+
+}
+ 
+
+button {
+    border: none;
+    color: white;
+    width: 20pc;
+    padding: 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+
+.dropdown-menu {
+    border: none;
+    color: white;
+    width: 20pc;
+    padding: 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+
+

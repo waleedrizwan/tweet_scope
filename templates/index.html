@@ -1,55 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Twitter Scope</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="stylesheet" href="/static/style.css">
+  <meta http-equiv="pragma" content="no-cache" />
+  <link rel="stylesheet" href="/static/style.css" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="/static/index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  
 </head>
+
 <body>
 
-<div class="jumbotron text-center">
-  <h1>Welcome to Tweet Scope</h1>
-  <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center">
-</div>
+  <div class="jumbotron text-center">
+    <h1>Welcome to Tweet Scope</h1>
+    <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center">
+  </div>
 
-
-<div class="float-container">
-  <div class="float-child">
+  <div class="float-container">
+    <div class="float-child">
       <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" class ="left-align">Filter Tweets By
-      <span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a >Username</a></li>
-        <li><a >Hashtag</a></li>
-        <li><a >Retweets by Username</a></li>
-        <li><a >Favorites by Username</a></li>
-      </ul>
-      </div>    
-  </div>
-  <div class="float-child">
-      <div class="form-group">  
-      <input placeholder="Enter Username or Hashtag" maxlength="60" size="60">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" class="right-align"
+          size=100>Filter Tweets By
+          <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a>Username</a></li>
+          <li><a>Hashtag</a></li>
+          <li><a>Retweets by Username</a></li>
+          <li><a>Favorites by Username</a></li>
+        </ul>
       </div>
+    </div>
+    <div class="float-child">
+      <div class="form-group">
+        <input id="userinput" placeholder="Enter Username or Hashtag" maxlength="60" size="60">
+      </div>
+    </div>
+
+    <div class="float-child">
+      <button type="button" class="btn btn-primary" onclick="JavaScript:getInput()">Update</button>
+    </div>
+
+    <br>
+
+
+    <!-- closes float container class  -->
   </div>
-  <div class="float-child">
-    <button type="button" class="btn btn-primary">Load Data</button>
-  </div>
+
+  <!-- Loads return value from Main.py -->
+  <!-- <p class="data"> <div id="body"></div> </p>   -->
+
+
+  <table id="table" class="table table-dark">
+    <thead>
+      <tr>
+        <th>Date & Time</th>
+        <th>Username</th> 
+        <th>Tweet</th>
+      </tr>
+    </thead>
+<tbody id="tablebody">
 
 
 
-<!-- closes float container class  -->
-</div>
+</tbody>
+
+  </table>
+
+<!-- 
+  <tr>
+    <th scope="row">1</th>
+    <td>Mark</td>
+    <td>Otto</td>
+    <td>@mdo</td>
+  </tr> -->
 
 
 
-
-<!-- Loads return value from Main.py -->
-<p> <div id="body"></div> </p>  
 </body>

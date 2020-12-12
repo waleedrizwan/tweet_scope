@@ -1,26 +1,18 @@
-console.log('Print test before async func call');
-
-
-
-async function getTwitterUser(username, endpoint = 'user') {
+async function getTwitterUser(username, selection, endpoint = 'user') {
   try {
-    var res = await fetch(`http://localhost:8080/${endpoint}?username=${username}`, {
+    var res = await fetch(`http://localhost:8080/${endpoint}?username=${username}&selection=${selection}`, {
       // this will be your heroku domain
       method: 'POST',
       mode: 'no-cors',
-      // body: JSON.stringify({
-      //   username,
-      // }),
+      
       cache: "no-cache",
       headers: new Headers({
         'Content-Type': 'application/json'
       }),
-      // body: { hello: "world" } 
+       
     })
-
-    // user tweets are stored 
+    // user tweets are stored in body
     var body = await res.json()
-    
     return body; 
 
   } catch (err) {
@@ -28,80 +20,197 @@ async function getTwitterUser(username, endpoint = 'user') {
   }
 }
 
-// update state t
-/* this.state = {
-  tweets: [];
-}
 
-*/
+function formatNumber(num) {
 
-/*
-const newTweets = await getTweets();
-this.setState({ tweets: newTweets })
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 
-render() { return <div>{this.state.tweets.toString()}</div>}
-*/
-
-// async function returns a promise , need to await promise to use response or else tweets will be undefined 
-// get twitter user returns promise, can only be accessed with await
-// how to get text value from input react
-
-
-// (async function () {
-
-//   // must call getTwitterUser on button click from drop down menu  
-//   var tweets = await getTwitterUser('scena360', 'user');
-
-//   // to access a different function on the API change the end point to the new endpoint with the new function  
-
-//   console.log(tweets)
-//   var p = document.createElement('p');
-//   p.innerText = tweets.toString();
-//   var body = document.querySelector('#body')
-//   body.appendChild(p)
-// })()
-
-
-async function getInput(){
-
-  var x = document.getElementById("userinput").value;
-  let count = 0
-
-  // holds 200 most recent tweets from user x 
-  tweetArray = await getTwitterUser(x);
-  console.log(tweetArray)
-
-  // Resets table elm, each time load data is pressed
-  var tableElm = document.querySelector('#tablebody');
-  var tableRows = document.querySelectorAll('.tweet');
-  // nukes existing table before creating new from tweetArray
-  tableRows.forEach(row => row.remove());
-
-
-  // revamp return value to return screen name and date and time then tweet as a column of its own 
-
-  // clear all the children.
-  // tableElm.removeChi
-
-  for (i = 0; i < tweetArray.length; i++) {
-
-    console.log("for loop run");
-
-    // if (document.querySelector(`#tweet-${i}`) !== null) {
-    //   continue;
-    // }
-    var temp = document.createElement('tr');
-    temp.className = 'tweet'
-    temp.innerText = "                " + (i + 1) + ":                " + tweetArray[i]
-    temp.id = `tweet-${i}`; // todo replace i with some unique id
-    tableElm.appendChild(temp)    
 
 }
 
-console.log("getInput has run ")
+async function getInput(e){
+
+  // holds selection of how to retrieve the Tweets
+  var dataChoice = document.getElementById("selectTag").value;
+
+
+  // if user selects by username retrieve last 200 tweets of the given username or none if not found
+  if (dataChoice == "Username") {
+    //  block of code to be executed if the condition is true
+
+    var x = document.getElementById("userinput").value;
+  
+    // holds 200 most recent tweets from user x 
+    tweetArray = await getTwitterUser(x, "username");
+    console.log(tweetArray)
+  
+    // Resets table elm, each time load data is pressed
+    var tableElm = document.querySelector('#tablebody');
+    var tableRows = document.querySelectorAll('.tweet');
+    
+    // nukes existing table rows before creating new from tweetArray
+    tableRows.forEach(row => row.remove());
+  
+  
+
+    for (i = 0; i < tweetArray.length; i++) {
+  
+      console.log("for loop run");
+  
+      var temp1 = document.createElement('tr');
+      temp1.className = 'tweet'
+      var temp2 = document.createElement('td');
+      temp2.className = 'tweet'
+      temp2.innerText = tweetArray[i]["date"]
+      var temp3 = document.createElement('td');
+      temp3.className = 'tweet'
+      temp3.innerText = tweetArray[i]["username"]
+      var temp4 = document.createElement('td');
+      temp4.className = 'tweet'
+      temp4.innerText = tweetArray[i]["tweet"]
+
+      var temp5 = document.createElement('td');
+      temp5.className = 'tweet'
+      temp5.innerText = formatNumber(tweetArray[i]["favorites"])
+
+      var temp6 = document.createElement('td');
+      temp6.className = 'tweet'
+      temp6.innerText = formatNumber(tweetArray[i]["retweets"])
+
+
+      temp1.appendChild(temp2)
+      temp1.appendChild(temp3)
+      temp1.appendChild(temp4)
+      temp1.appendChild(temp5)   
+      temp1.appendChild(temp6)
+      tableElm.appendChild(temp1)
+      
+  
+  }
+    
+
+
+  } else if (dataChoice == "Hashtag") {
+    
+    var x = document.getElementById("userinput").value;
+    
+    tweetArray = await getTwitterUser(x,"hashtag");
+    console.log(tweetArray)
+  
+    // Resets table elm, each time load data is pressed
+    var tableElm = document.querySelector('#tablebody');
+    var tableRows = document.querySelectorAll('.tweet');
+    
+    // nukes existing table rows before creating new from tweetArray
+    tableRows.forEach(row => row.remove());
+  
+    for (i = 0; i < tweetArray.length; i++) {
+  
+      console.log("for loop run");
+  
+      var temp1 = document.createElement('tr');
+      temp1.className = 'tweet'
+      var temp2 = document.createElement('td');
+      temp2.className = 'tweet'
+      temp2.innerText = tweetArray[i]["date"]
+      var temp3 = document.createElement('td');
+      temp3.className = 'tweet'
+      temp3.innerText = tweetArray[i]["username"]
+      var temp4 = document.createElement('td');
+      temp4.className = 'tweet'
+      temp4.innerText = tweetArray[i]["tweet"]
+  
+
+      var temp5 = document.createElement('td');
+      temp5.className = 'tweet'
+      temp5.innerText = formatNumber(tweetArray[i]["favorites"])
+
+      var temp6 = document.createElement('td');
+      temp6.className = 'tweet'
+      temp6.innerText = formatNumber(tweetArray[i]["retweets"])
+
+
+      temp1.appendChild(temp2)
+      temp1.appendChild(temp3)
+      temp1.appendChild(temp4)
+      temp1.appendChild(temp5)   
+      temp1.appendChild(temp6)
+      tableElm.appendChild(temp1)
+  
+  }
+    
+
+
+
+  }else if (dataChoice == "Liked Tweets By Username") {
+    
+    var x = document.getElementById("userinput").value;
+    
+    tweetArray = await getTwitterUser(x,"Liked Tweets By Username");
+    
+    console.log(tweetArray)
+  
+    // Resets table elm, each time load data is pressed
+    var tableElm = document.querySelector('#tablebody');
+    var tableRows = document.querySelectorAll('.tweet');
+    
+    // nukes existing table rows before creating new from tweetArray
+    tableRows.forEach(row => row.remove());
+  
+    for (i = 0; i < tweetArray.length; i++) {
+  
+      console.log("for loop run");
+  
+      var temp1 = document.createElement('tr');
+      temp1.className = 'tweet'
+      var temp2 = document.createElement('td');
+      temp2.className = 'tweet'
+      temp2.innerText = tweetArray[i]["date"]
+      var temp3 = document.createElement('td');
+      temp3.className = 'tweet'
+      temp3.innerText = tweetArray[i]["username"]
+      var temp4 = document.createElement('td');
+      temp4.className = 'tweet'
+      temp4.innerText = tweetArray[i]["tweet"]
+  
+      var temp5 = document.createElement('td');
+      temp5.className = 'tweet'
+      temp5.innerText = formatNumber(tweetArray[i]["favorites"])
+
+      var temp6 = document.createElement('td');
+      temp6.className = 'tweet'
+      temp6.innerText = formatNumber(tweetArray[i]["retweets"])
+
+
+      temp1.appendChild(temp2)
+      temp1.appendChild(temp3)
+      temp1.appendChild(temp4)
+      temp1.appendChild(temp5)   
+      temp1.appendChild(temp6)
+      tableElm.appendChild(temp1)
+  }
+
+
+  }
+
+
+ 
+
+
 
 }
 
+console.log(document.all)
 
-console.log('End of index.js');
+var input = document.getElementsByTagName("input").value;
+console.log(input)
 
+input.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("submitButton").click();
+  }
+});

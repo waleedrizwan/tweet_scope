@@ -2,10 +2,11 @@
 <html lang="en">
 
 <head>
-  <title>Twitter Scope</title>
+  <title>Twitter Stalk</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="pragma" content="no-cache" />
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="/static/style.css" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="/static/index.js"></script>
@@ -13,35 +14,37 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body class="jumbotron">
 
-  <div class="jumbotron text-center">
-    <h1>Welcome to Tweet Scope</h1>
+  <div class="text-center text-primary">
+    
+    <a href="https://github.com/waleedrizwan"><small >made with ❤️ by Waleed</small></a>
+    
+    <h1>Welcome To Tweet Scope</h1>
     <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center">
   </div>
 
-  <div class="float-container">
+
+  <div class="jumbotron float-container text-primary">
     <div class="float-child">
-      <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" class="right-align"
-          size=100>Filter Tweets By
-          <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a>Username</a></li>
-          <li><a>Hashtag</a></li>
-          <li><a>Retweets by Username</a></li>
-          <li><a>Favorites by Username</a></li>
-        </ul>
-      </div>
+     
+
+      <select id="selectTag" class="form-control form-control-sm">
+        <option>Username</option>
+        <option>Hashtag</option>
+        <option>Liked Tweets By Username</option>
+
+      </select>
+
     </div>
-    <div class="float-child">
-      <div class="form-group">
+    <div class="float-child text-primary">
+      <div class="form-group text-primary">
         <input id="userinput" placeholder="Enter Username or Hashtag" maxlength="60" size="60">
       </div>
     </div>
 
     <div class="float-child">
-      <button type="button" class="btn btn-primary" onclick="JavaScript:getInput()">Update</button>
+      <button type="button" id="submitButton" class="btn btn-primary" onclick="JavaScript:getInput()">Pull Tweets</button>
     </div>
 
     <br>
@@ -50,33 +53,23 @@
     <!-- closes float container class  -->
   </div>
 
-  <!-- Loads return value from Main.py -->
-  <!-- <p class="data"> <div id="body"></div> </p>   -->
-
-
-  <table id="table" class="table table-dark">
+  <table id="table" class="table text-primary">
     <thead>
       <tr>
-        <th>Date & Time</th>
+        <th>Date</th>
         <th>Username</th> 
         <th>Tweet</th>
+        <th># of Favorites</th>
+        <th># of Retweets</th>
       </tr>
     </thead>
 <tbody id="tablebody">
 
-
+  
 
 </tbody>
 
   </table>
-
-<!-- 
-  <tr>
-    <th scope="row">1</th>
-    <td>Mark</td>
-    <td>Otto</td>
-    <td>@mdo</td>
-  </tr> -->
 
 
 

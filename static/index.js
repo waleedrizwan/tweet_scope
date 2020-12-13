@@ -21,26 +21,26 @@ async function getTwitterUser(username, selection, endpoint = 'user') {
 }
 
 
+// formats any large number with commas and appropriate spacing 
 function formatNumber(num) {
 
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 
-
 }
+
 
 async function getInput(e){
 
-  // holds selection of how to retrieve the Tweets
+  // Returns drop down menu selection of how to retreive Tweets
   var dataChoice = document.getElementById("selectTag").value;
 
 
-  // if user selects by username retrieve last 200 tweets of the given username or none if not found
+  // if user selects filter by username retrieve last 200 tweets of the given username or none if not found
   if (dataChoice == "Username") {
-    //  block of code to be executed if the condition is true
-
+    
     var x = document.getElementById("userinput").value;
   
-    // holds 200 most recent tweets from user x 
+    // holds 200 most recent tweets from user 'x' 
     tweetArray = await getTwitterUser(x, "username");
     console.log(tweetArray)
   
@@ -51,45 +51,67 @@ async function getInput(e){
     // nukes existing table rows before creating new from tweetArray
     tableRows.forEach(row => row.remove());
   
-  
-
+    // iterates over array containing all Tweets
     for (i = 0; i < tweetArray.length; i++) {
-  
-      console.log("for loop run");
-  
-      var temp1 = document.createElement('tr');
-      temp1.className = 'tweet'
-      var temp2 = document.createElement('td');
-      temp2.className = 'tweet'
-      temp2.innerText = tweetArray[i]["date"]
-      var temp3 = document.createElement('td');
-      temp3.className = 'tweet'
-      temp3.innerText = tweetArray[i]["username"]
-      var temp4 = document.createElement('td');
-      temp4.className = 'tweet'
-      temp4.innerText = tweetArray[i]["tweet"]
-
-      var temp5 = document.createElement('td');
-      temp5.className = 'tweet'
-      temp5.innerText = formatNumber(tweetArray[i]["favorites"])
-
-      var temp6 = document.createElement('td');
-      temp6.className = 'tweet'
-      temp6.innerText = formatNumber(tweetArray[i]["retweets"])
-
-
-      temp1.appendChild(temp2)
-      temp1.appendChild(temp3)
-      temp1.appendChild(temp4)
-      temp1.appendChild(temp5)   
-      temp1.appendChild(temp6)
-      tableElm.appendChild(temp1)
       
+      // href link so user can click row and redirect to actual Tweet itself 
+      var tweetLink = document.createElement('a');
+      tweetLink.className = 'tweet'
+      // the link is created using this url and adding the Tweet's ID to the end 
+      tweetLink.href = 'https://twitter.com/twitter/statuses/' + tweetArray[i]["id"]
+      // setting the target to blank so that it opens in a new window 
+      tweetLink.target = '_blank'
+    
+        
+      // Creates new row tag to hold Tweet Data
+      var newRow = document.createElement('tr');
+      newRow.className = 'tweet'
+      
+      // creates column to hold Date 
+      var date = document.createElement('td');
+      date.className = 'tweet'    
+      date.innerText = tweetArray[i]["date"]
+     
+      // creates column to hold the username
+      var handle = document.createElement('td');
+      handle.className = 'tweet'
+      handle.innerText = tweetArray[i]["username"]
+      
+      // creates column to hold the text of the Tweet
+      var tweetText = document.createElement('td');
+      tweetText.className = 'tweet'
+      tweetText.innerText = tweetArray[i]["tweet"]
+
+      // creates column to hold favorite count   
+      var favoriteCount = document.createElement('td');
+      favoriteCount.className = 'tweet'
+      favoriteCount.innerText = formatNumber(tweetArray[i]["favorites"])
+
+      // creates column to hold Retweet count
+      var retweetCount = document.createElement('td');
+      retweetCount.className = 'tweet'
+      retweetCount.innerText = formatNumber(tweetArray[i]["retweets"])
+
+
+      // adds columns to new row
+      newRow.appendChild(date)
+      newRow.appendChild(handle)
+      
+      // wraps text column in a tag for href, then add the <a> to the row itself
+      tweetLink.appendChild(tweetText)
+      newRow.appendChild(tweetLink)
+      
+      newRow.appendChild(favoriteCount)   
+      newRow.appendChild(retweetCount)
+      
+      // adds new row to existing table element 
+      tableElm.appendChild(newRow)
+
   
   }
     
-
-
+      
+// if user selects Twwets by Hashtag, retrieve last 200 tweets containing the hashtag or none if not found 
   } else if (dataChoice == "Hashtag") {
     
     var x = document.getElementById("userinput").value;
@@ -104,44 +126,66 @@ async function getInput(e){
     // nukes existing table rows before creating new from tweetArray
     tableRows.forEach(row => row.remove());
   
+    // iterates over array containing all relevant Tweet information
     for (i = 0; i < tweetArray.length; i++) {
   
-      console.log("for loop run");
   
-      var temp1 = document.createElement('tr');
-      temp1.className = 'tweet'
-      var temp2 = document.createElement('td');
-      temp2.className = 'tweet'
-      temp2.innerText = tweetArray[i]["date"]
-      var temp3 = document.createElement('td');
-      temp3.className = 'tweet'
-      temp3.innerText = tweetArray[i]["username"]
-      var temp4 = document.createElement('td');
-      temp4.className = 'tweet'
-      temp4.innerText = tweetArray[i]["tweet"]
-  
+      // href link so user can click row and redirect to actual Tweet itself 
+      var tweetLink = document.createElement('a');
+      tweetLink.className = 'tweet'
+      // the link is creating using this url and adding the Tweets ID to the end 
+      tweetLink.href = 'https://twitter.com/twitter/statuses/' + tweetArray[i]["id"]
+      // setting the target to blank so that it opens in a new window 
+      tweetLink.target = '_blank'
+    
+        
+      // Creates new row tag to hold Tweet Data
+      var newRow = document.createElement('tr');
+      newRow.className = 'tweet'
+      
+      // creates column to hold Date 
+      var date = document.createElement('td');
+      date.className = 'tweet'    
+      date.innerText = tweetArray[i]["date"]
+     
+      // creates column to hold the username
+      var handle = document.createElement('td');
+      handle.className = 'tweet'
+      handle.innerText = tweetArray[i]["username"]
+      
+      // creates column to hold the text of the Tweet
+      var tweetText = document.createElement('td');
+      tweetText.className = 'tweet'
+      tweetText.innerText = tweetArray[i]["tweet"]
 
-      var temp5 = document.createElement('td');
-      temp5.className = 'tweet'
-      temp5.innerText = formatNumber(tweetArray[i]["favorites"])
+      // creates column to hold favorite count   
+      var favoriteCount = document.createElement('td');
+      favoriteCount.className = 'tweet'
+      favoriteCount.innerText = formatNumber(tweetArray[i]["favorites"])
 
-      var temp6 = document.createElement('td');
-      temp6.className = 'tweet'
-      temp6.innerText = formatNumber(tweetArray[i]["retweets"])
+      // creates column to hold Retweet count
+      var retweetCount = document.createElement('td');
+      retweetCount.className = 'tweet'
+      retweetCount.innerText = formatNumber(tweetArray[i]["retweets"])
 
 
-      temp1.appendChild(temp2)
-      temp1.appendChild(temp3)
-      temp1.appendChild(temp4)
-      temp1.appendChild(temp5)   
-      temp1.appendChild(temp6)
-      tableElm.appendChild(temp1)
-  
+      // adds columns to new row
+      newRow.appendChild(date)
+      newRow.appendChild(handle)
+      
+      // wraps text column in a tag for href, then add the <a> to the row itself
+      tweetLink.appendChild(tweetText)
+      newRow.appendChild(tweetLink)
+      
+      newRow.appendChild(favoriteCount)   
+      newRow.appendChild(retweetCount)
+      
+      // adds new row to existing table element 
+      tableElm.appendChild(newRow)
   }
     
 
-
-
+// if user selects Liked Tweets By username, retrieve last 200 liked Tweets of the user or 0 if none exist or if the user does not exist
   }else if (dataChoice == "Liked Tweets By Username") {
     
     var x = document.getElementById("userinput").value;
@@ -157,48 +201,65 @@ async function getInput(e){
     // nukes existing table rows before creating new from tweetArray
     tableRows.forEach(row => row.remove());
   
+    // iterates over array containing all relevant Tweet information  
     for (i = 0; i < tweetArray.length; i++) {
   
-      console.log("for loop run");
-  
-      var temp1 = document.createElement('tr');
-      temp1.className = 'tweet'
-      var temp2 = document.createElement('td');
-      temp2.className = 'tweet'
-      temp2.innerText = tweetArray[i]["date"]
-      var temp3 = document.createElement('td');
-      temp3.className = 'tweet'
-      temp3.innerText = tweetArray[i]["username"]
-      var temp4 = document.createElement('td');
-      temp4.className = 'tweet'
-      temp4.innerText = tweetArray[i]["tweet"]
-  
-      var temp5 = document.createElement('td');
-      temp5.className = 'tweet'
-      temp5.innerText = formatNumber(tweetArray[i]["favorites"])
+        // href link so user can click row and redirect to actual Tweet itself 
+        var tweetLink = document.createElement('a');
+        tweetLink.className = 'tweet'
+        // the link is creating using this url and adding the Tweets ID to the end 
+        tweetLink.href = 'https://twitter.com/twitter/statuses/' + tweetArray[i]["id"]
+        // setting the target to blank so that it opens in a new window 
+        tweetLink.target = '_blank'
+      
+          
+        // Creates new row tag to hold Tweet Data
+        var newRow = document.createElement('tr');
+        newRow.className = 'tweet'
+        
+        // creates column to hold Date 
+        var date = document.createElement('td');
+        date.className = 'tweet'    
+        date.innerText = tweetArray[i]["date"]
+        
+        // creates column to hold the username
+        var handle = document.createElement('td');
+        handle.className = 'tweet'
+        handle.innerText = tweetArray[i]["username"]
+        
+        // creates column to hold the text of the Tweet
+        var tweetText = document.createElement('td');
+        tweetText.className = 'tweet'
+        tweetText.innerText = tweetArray[i]["tweet"]
 
-      var temp6 = document.createElement('td');
-      temp6.className = 'tweet'
-      temp6.innerText = formatNumber(tweetArray[i]["retweets"])
+        // creates column to hold favorite count   
+        var favoriteCount = document.createElement('td');
+        favoriteCount.className = 'tweet'
+        favoriteCount.innerText = formatNumber(tweetArray[i]["favorites"])
+
+        // creates column to hold Retweet count
+        var retweetCount = document.createElement('td');
+        retweetCount.className = 'tweet'
+        retweetCount.innerText = formatNumber(tweetArray[i]["retweets"])
 
 
-      temp1.appendChild(temp2)
-      temp1.appendChild(temp3)
-      temp1.appendChild(temp4)
-      temp1.appendChild(temp5)   
-      temp1.appendChild(temp6)
-      tableElm.appendChild(temp1)
-  }
+        // adds columns to new row
+        newRow.appendChild(date)
+        newRow.appendChild(handle)
+        
+        // wraps text column in a tag for href, then add the <a> to the row itself
+        tweetLink.appendChild(tweetText)
+        newRow.appendChild(tweetLink)
+        
+        newRow.appendChild(favoriteCount)   
+        newRow.appendChild(retweetCount)
+        
+        // adds new row to existing table element 
+        tableElm.appendChild(newRow)
 
-
-  }
-
-
- 
-
-
-
-}
+         } 
+   }
+} // Ends Conditional Block
 
 console.log(document.all)
 

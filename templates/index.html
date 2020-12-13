@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Twitter Stalk</title>
+  <title>Tweet Scope</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="pragma" content="no-cache" />
@@ -28,8 +28,8 @@
   <div class="jumbotron float-container text-primary">
     <div class="float-child">
      
-
-      <select id="selectTag" class="form-control form-control-sm">
+      <select  id="selectTag" class="form-control form-control-sm">
+        <option value="" disabled selected>Filter Tweets By</option>
         <option>Username</option>
         <option>Hashtag</option>
         <option>Liked Tweets By Username</option>
@@ -53,12 +53,12 @@
     <!-- closes float container class  -->
   </div>
 
-  <table id="table" class="table text-primary">
+  <table id="table" class="table text-primary table-bordered table-hover">
     <thead>
       <tr>
         <th>Date</th>
         <th>Username</th> 
-        <th>Tweet</th>
+        <th>Full Tweet Text</th>
         <th># of Favorites</th>
         <th># of Retweets</th>
       </tr>

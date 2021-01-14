@@ -11,14 +11,14 @@
   <script src="/static/index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 </head>
 
 <body class="jumbotron">
 
   <div class="text-center text-primary">
-    
-    <a href="https://github.com/waleedrizwan"><small >made with ❤️ by Waleed</small></a>
+    <p><a href="{{ url_for('faq') }}">About</a></p>
+
+    <a href="https://github.com/waleedrizwan"><small>open source & made with ❤️</small></a>
     <br>
     <h1>Tweet Scope v1.0</h1>
     
@@ -37,15 +37,12 @@
 
   <div class="jumbotron float-container text-primary">
     <div class="float-child">
-     
       <select id="selectTag" class="form-control form-control-sm">
         <option value="" disabled selected>Filter Tweets By</option>
         <option>Username</option>
         <option>Hashtag</option>
         <option>Liked Tweets By Username</option>
-
       </select>
-
     </div>
     <div class="float-child text-primary">
       <div class="form-group text-primary">

@@ -22,7 +22,7 @@ async function getTwitterUser(username, selection, endpoint = 'user') {
 }
 
 
-// formats any large number with commas and appropriate spacing 
+// formats any large number with comma's and appropriate spacing 
 function formatNumber(num) {
 
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -88,7 +88,13 @@ async function getInput(e){
       // creates column to hold the username
       var handle = document.createElement('td');
       handle.className = 'tweet'
-      handle.innerText = tweetArray[i]["username"]
+      
+      if (tweetArray[i]["verified"]){
+      handle.innerText = tweetArray[i]["username"] + '☑️'
+      } else{
+        handle.innerText = tweetArray[i]["username"] 
+      }
+      
       
       // creates column to hold the text of the Tweet
       var tweetText = document.createElement('td');
@@ -175,7 +181,12 @@ async function getInput(e){
       // creates column to hold the username
       var handle = document.createElement('td');
       handle.className = 'tweet'
-      handle.innerText = tweetArray[i]["username"]
+      if (tweetArray[i]["verified"]){
+        handle.innerText = tweetArray[i]["username"] + '☑️'
+        } else{
+          handle.innerText = tweetArray[i]["username"] 
+        }
+        
       
       // creates column to hold the text of the Tweet
       var tweetText = document.createElement('td');
@@ -261,7 +272,12 @@ async function getInput(e){
         // creates column to hold the username
         var handle = document.createElement('td');
         handle.className = 'tweet'
-        handle.innerText = tweetArray[i]["username"]
+        if (tweetArray[i]["verified"]){
+          handle.innerText = tweetArray[i]["username"] + '☑️'
+          } else{
+            handle.innerText = tweetArray[i]["username"] 
+          }
+          
         
         // creates column to hold the text of the Tweet
         var tweetText = document.createElement('td');
@@ -296,10 +312,46 @@ async function getInput(e){
    }
 } // Ends Conditional Block
 
-console.log(document.all)
 
+const myNotification = window.createNotification({
+})
+
+myNotification({ 
+
+  // close on click
+  closeOnClick: true,
+
+  // displays close button
+  displayCloseButton: false,
+
+  // nfc-top-left
+  // nfc-bottom-right
+  // nfc-bottom-left
+  positionClass: 'nfc-top-right',
+
+  // callback
+  onclick: false,
+
+  // timeout in milliseconds
+  showDuration: 3500,
+
+  // success, info, warning, error, and none
+  theme: 'success'
+  
+});
+
+
+myNotification({ 
+  title: 'Title',
+  message: 'Notification Message' 
+});
+
+
+
+// Unknown JS Code
 var input = document.getElementsByTagName("input").value;
 console.log(input)
+
 
 input.addEventListener("keyup", function(event) {
   // Number 13 is the "Enter" key on the keyboard

@@ -22,6 +22,10 @@ totalTweetsScoped = 0
 def index():
     return render_template('index.html')
 
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')    
+
 # gets invoked when user makes HTTP post request to <url>/user/
 @app.route('/user', methods=['POST', 'OPTIONS', 'GET'])
 def user():
@@ -72,6 +76,7 @@ def user():
         tweetDict['favorites'] = favorites
         tweetDict['retweets'] = retweets
         tweetDict['id'] = tweetID
+        tweetDict['verified'] = tweet.author.verified
         tweetList.append(tweetDict)
       
       print("end of user tweet function")
@@ -109,6 +114,7 @@ def user():
         tweetDict['favorites'] = tweet.favorite_count
         tweetDict['retweets'] = tweet.retweet_count
         tweetDict['id'] = tweet.id_str
+        tweetDict['verified'] = tweet.author.verified
         tweetList.append(tweetDict) 
             
       return tweetList
@@ -143,6 +149,7 @@ def user():
           tweetDict['favorites'] = tweet.favorite_count
           tweetDict['retweets'] = tweet.retweet_count
           tweetDict['id'] = tweet.id_str
+          tweetDict['verified'] = tweet.author.verified
           tweetList.append(tweetDict)
           
       return tweetList

@@ -14,6 +14,10 @@ secret_key = '1309966965663035392-4YY7ERbSPWTFyPoAHwCQr0K7c0FtYC'
 secret_token = 'RPBhXHjoumebhiURAQ7D5HZtq2EaBFwHsoZKQxn7bBiXo'
 
 
+# historic Count of Tweets
+totalTweetsScoped = 0
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -22,7 +26,6 @@ def index():
 @app.route('/user', methods=['POST', 'OPTIONS', 'GET'])
 def user():
    
-
     def userTweet(arg):
       print("User tweet func run")
       # requires multiple authorization methods
@@ -31,9 +34,14 @@ def user():
       # Once authorized, API  object can utilize all Tweepy methods
       api = tweepy.API(auth)
 
-      # user timeline  method consumes a user name and returns the last 200 status objects  
-      userTweetList = api.user_timeline(screen_name=arg , count = 200 ,tweet_mode="extended")
-          
+      # if no tweets are found the api methods will throw an error
+      try:
+        # user timeline  method consumes a user name and returns the last 200 status objects
+        userTweetList = api.user_timeline(screen_name=arg , count = 200 ,tweet_mode="extended")
+      except:
+        # in the case of no tweets found return an empty array of tweets
+        return []
+
       # Holds list of TweetDict
       tweetList = []
 
@@ -52,9 +60,12 @@ def user():
         
         tweetDict['tweet'] = text
         
-        # Retweets Require the usage of retweeded_status to retreive the full text
+        # Retweets Require the usage of retweeted_status to retreive the full text
         if(text[0:2]) == "RT":
-          tweetDict['tweet'] = tweet.retweeted_status.full_text
+          try:
+            weetDict['tweet'] = tweet.retweeted_status.full_text
+          except:
+              print("Status Object Has No retweeted_status_Property")
 
         tweetDict['date'] = date
         tweetDict['username'] = username
@@ -72,27 +83,34 @@ def user():
       auth.set_access_token(secret_key, secret_token)
 
       api = tweepy.API(auth)
+
+      # search parameter must include hashtag 
+      searchParam = "#" + hashtag
       
-      tempParam = "#" + hashtag
+      tweets = tweepy.Cursor(api.search,
+                q=searchParam,
+                lang="en",tweet_mode="extended").items(200)
 
       tweetList = []
+            
+      for tweet in tweets:
+        
+        tweetDict = {}       
+        tweetDict['tweet'] = tweet.full_text
 
-      for tweet in tweepy.Cursor(api.search,q=tempParam, count=200, tweet_mode="extended").items():
-          
-          tweetDict = {}       
-          tweetDict['tweet'] = tweet.full_text
-
-          if(tweetDict['tweet']) == "RT":   
-            tweetDict['tweet'] = tweet.retweeted_status.full_text
-
-
-          tweetDict['date'] = tweet.created_at
-          tweetDict['username'] = tweet.author.screen_name
-          tweetDict['favorites'] = tweet.favorite_count
-          tweetDict['retweets'] = tweet.retweet_count
-          tweetDict['id'] = tweet.id_str
-          tweetList.append(tweetDict)
-          
+        if(tweetDict['tweet'][0:2]) == "RT":   
+            try:
+                tweetDict['tweet'] = tweet.retweeted_status.full_text
+            except:
+                print("Status Object Has No retweeted_status_Property")
+                
+        tweetDict['date'] = tweet.created_at
+        tweetDict['username'] = tweet.author.screen_name
+        tweetDict['favorites'] = tweet.favorite_count
+        tweetDict['retweets'] = tweet.retweet_count
+        tweetDict['id'] = tweet.id_str
+        tweetList.append(tweetDict) 
+            
       return tweetList
 
     def byLikedTweets(username):
@@ -102,11 +120,12 @@ def user():
 
       api = tweepy.API(auth)
       
-      tempParam = "#" + username
-
       tweetList = []
-
-      favorites = api.favorites(screen_name='elonmusk', tweet_mode="extended", count = 200) 
+  
+      try:
+        favorites = api.favorites(screen_name=username, tweet_mode="extended", count = 200) 
+      except:
+        return []
 
       for tweet in favorites:
 
@@ -114,7 +133,10 @@ def user():
           tweetDict['tweet'] = tweet.full_text
 
           if(tweetDict['tweet']) == "RT":   
-            tweetDict['tweet'] = tweet.retweeted_status.full_text
+            try:
+                tweetDict['tweet'] = tweet.retweeted_status.full_text
+            except:
+                print("Status Object Has No retweeted_status_Property")
             
           tweetDict['date'] = tweet.created_at
           tweetDict['username'] = tweet.author.screen_name
@@ -128,20 +150,15 @@ def user():
     username = request.args.get('username')
     selection = request.args.get('selection')
    
-    # Conditional Flow
-    
     # if user selects tweets by username, call userTweet Function
     if selection == "username":
       recentTweets = userTweet(username)
-   
     # if user selects tweets by hashtag, call byHashTag Function  
     elif selection == "hashtag":
       recentTweets = byHashTag(username)
-
     # if user selects liked tweets by username call byLikedTweets function   
     elif selection == "Liked Tweets By Username":
       recentTweets = byLikedTweets(username)
-      
     # Returns jsonified array of dictionaries, containing all Tweet data
     return jsonify(recentTweets)
 

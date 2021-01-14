@@ -6,12 +6,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="pragma" content="no-cache" />
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="/static/style.css" type="text/css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="/static/index.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 </head>
 
 <body class="jumbotron">
@@ -19,16 +19,26 @@
   <div class="text-center text-primary">
     
     <a href="https://github.com/waleedrizwan"><small >made with ❤️ by Waleed</small></a>
+    <br>
+    <h1>Tweet Scope v1.0</h1>
     
-    <h1>Welcome To Tweet Scope</h1>
-    <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center">
-  </div>
+   <strong><div>___Total Tweets Scoped</div></strong> 
+    
+    <!-- Old Twitter Logo -->
+    <!-- <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center"> -->
+    <div id="contener">
+      <div id="inner" class="preloader">
+       <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center" height="350" width="350"  />
+     </div>
+   <br>
+   </div>
 
+  </div>
 
   <div class="jumbotron float-container text-primary">
     <div class="float-child">
      
-      <select  id="selectTag" class="form-control form-control-sm">
+      <select id="selectTag" class="form-control form-control-sm">
         <option value="" disabled selected>Filter Tweets By</option>
         <option>Username</option>
         <option>Hashtag</option>
@@ -49,10 +59,11 @@
 
     <br>
 
-
     <!-- closes float container class  -->
   </div>
 
+  <strong><div id="searchResults" class="text-center text-primary"></div></strong>
+  <br>
   <table id="table" class="table text-primary table-bordered table-hover">
     <thead>
       <tr>
@@ -63,14 +74,15 @@
         <th># of Retweets</th>
       </tr>
     </thead>
+    
 <tbody id="tablebody">
-
-  
 
 </tbody>
 
   </table>
 
+  <strong><div id="notweets" class="text-center text-primary"></div></strong>
+  
 
 
 </body>

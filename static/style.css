@@ -4,33 +4,11 @@
     justify-content: center;
 } 
 
-
-/* .float-child {
-    width: 33%;
-    float: left;
-    padding: 0px;
-    border: 2px solid red;
-       
-}
-
-
-.data {
-    padding: 10px;
-    margin: 20px;
-
-}
-
-
-
- */
-
-
 input {
     height: 2pc;
 
 }
  
-
 button {
     border: none;
     color: white;
@@ -53,5 +31,27 @@ button {
     font-size: 16px;
 }
 
-
-
+#contener {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #inner {
+    height: 350px;
+  }
+  
+  .preloader {
+    animation: spin 2.5s ease-in-out infinite;
+  }
+  
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotateY(360deg);
+    }
+    100% {
+      -webkit-transform: rotateY(0deg);
+    }
+  }

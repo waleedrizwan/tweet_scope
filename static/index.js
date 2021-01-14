@@ -1,4 +1,5 @@
 async function getTwitterUser(username, selection, endpoint = 'user') {
+
   try {
     var res = await fetch(`http://localhost:8080/${endpoint}?username=${username}&selection=${selection}`, {
       // this will be your heroku domain
@@ -28,12 +29,10 @@ function formatNumber(num) {
 
 }
 
-
 async function getInput(e){
 
   // Returns drop down menu selection of how to retreive Tweets
   var dataChoice = document.getElementById("selectTag").value;
-
 
   // if user selects filter by username retrieve last 200 tweets of the given username or none if not found
   if (dataChoice == "Username") {
@@ -42,6 +41,21 @@ async function getInput(e){
   
     // holds 200 most recent tweets from user 'x' 
     tweetArray = await getTwitterUser(x, "username");
+
+    var searchResults = document.getElementById("searchResults")
+    searchResults.innerText = tweetArray.length + ": Total Tweets By Username: " + x
+
+    // if no tweets are found 
+    if (tweetArray.length === 0){
+      var noResults = document.getElementById("notweets")
+      noResults.innerText = "No Tweets Found, Try changing your search."
+      searchResults.innerText = ""
+
+    }else{
+      var noResults = document.getElementById("notweets")
+      noResults.innerText = ""
+    }
+
     console.log(tweetArray)
   
     // Resets table elm, each time load data is pressed
@@ -62,7 +76,6 @@ async function getInput(e){
       // setting the target to blank so that it opens in a new window 
       tweetLink.target = '_blank'
     
-        
       // Creates new row tag to hold Tweet Data
       var newRow = document.createElement('tr');
       newRow.className = 'tweet'
@@ -91,7 +104,6 @@ async function getInput(e){
       var retweetCount = document.createElement('td');
       retweetCount.className = 'tweet'
       retweetCount.innerText = formatNumber(tweetArray[i]["retweets"])
-
 
       // adds columns to new row
       newRow.appendChild(date)
@@ -118,7 +130,21 @@ async function getInput(e){
     
     tweetArray = await getTwitterUser(x,"hashtag");
     console.log(tweetArray)
-  
+
+    var searchResults = document.getElementById("searchResults")
+    searchResults.innerText = tweetArray.length + ": Total Tweets By hashtag: " + x
+
+    // if no tweets are found 
+    if (tweetArray.length === 0){
+      var noResults = document.getElementById("notweets")
+      noResults.innerText = "No Tweets Found, Try changing your search."
+      searchResults.innerText = ""
+    }else{
+      var noResults = document.getElementById("notweets")
+      noResults.innerText = ""
+    }
+    
+
     // Resets table elm, each time load data is pressed
     var tableElm = document.querySelector('#tablebody');
     var tableRows = document.querySelectorAll('.tweet');
@@ -129,7 +155,6 @@ async function getInput(e){
     // iterates over array containing all relevant Tweet information
     for (i = 0; i < tweetArray.length; i++) {
   
-  
       // href link so user can click row and redirect to actual Tweet itself 
       var tweetLink = document.createElement('a');
       tweetLink.className = 'tweet'
@@ -138,7 +163,6 @@ async function getInput(e){
       // setting the target to blank so that it opens in a new window 
       tweetLink.target = '_blank'
     
-        
       // Creates new row tag to hold Tweet Data
       var newRow = document.createElement('tr');
       newRow.className = 'tweet'
@@ -168,7 +192,6 @@ async function getInput(e){
       retweetCount.className = 'tweet'
       retweetCount.innerText = formatNumber(tweetArray[i]["retweets"])
 
-
       // adds columns to new row
       newRow.appendChild(date)
       newRow.appendChild(handle)
@@ -193,7 +216,21 @@ async function getInput(e){
     tweetArray = await getTwitterUser(x,"Liked Tweets By Username");
     
     console.log(tweetArray)
-  
+
+    var searchResults = document.getElementById("searchResults")
+    searchResults.innerText = tweetArray.length + ": Total Liked Tweets By Username: " + x
+
+    // if no tweets are found 
+    if (tweetArray.length === 0){
+      var noResults = document.getElementById("notweets")
+      noResults.innerText = "No Tweets Found, Try changing your search."
+      searchResults.innerText = ""
+    }
+    else{
+      var noResults = document.getElementById("notweets")
+      noResults.innerText = ""
+    }
+
     // Resets table elm, each time load data is pressed
     var tableElm = document.querySelector('#tablebody');
     var tableRows = document.querySelectorAll('.tweet');
@@ -212,7 +249,6 @@ async function getInput(e){
         // setting the target to blank so that it opens in a new window 
         tweetLink.target = '_blank'
       
-          
         // Creates new row tag to hold Tweet Data
         var newRow = document.createElement('tr');
         newRow.className = 'tweet'
@@ -241,7 +277,6 @@ async function getInput(e){
         var retweetCount = document.createElement('td');
         retweetCount.className = 'tweet'
         retweetCount.innerText = formatNumber(tweetArray[i]["retweets"])
-
 
         // adds columns to new row
         newRow.appendChild(date)

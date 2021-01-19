@@ -1,6 +1,7 @@
 async function getTwitterUser(username, selection, endpoint = 'user') {
 
   try {
+    // change this address to deployed site
     var res = await fetch(`http://localhost:8080/${endpoint}?username=${username}&selection=${selection}`, {
       // this will be your heroku domain
       method: 'POST',
@@ -21,6 +22,36 @@ async function getTwitterUser(username, selection, endpoint = 'user') {
   }
 }
 
+async function updateTotalTweets() {
+
+  try {
+    // change this address to deployed site
+    var res = await fetch(`http://localhost:8080/update`, {
+      
+      method: 'POST',
+      mode: 'no-cors',
+      cache: "no-cache",
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+       
+    })
+    
+    var body = await res.json()
+    return body; 
+
+  } catch (err) {
+    console.log('Issue with line 47 index.js', err)
+  }
+}
+
+
+
+async function callUpdate(){
+  return await updateTotalTweets()
+}
+
+
 
 // formats any large number with comma's and appropriate spacing 
 function formatNumber(num) {
@@ -28,6 +59,7 @@ function formatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 
 }
+
 
 async function getInput(e){
 
@@ -42,9 +74,14 @@ async function getInput(e){
     // holds 200 most recent tweets from user 'x' 
     tweetArray = await getTwitterUser(x, "username");
 
+    totalTweets = await callUpdate();
+    console.log(totalTweets)
+    var total = document.getElementById("totalTweets");
+    total.innerText = `${totalTweets} Tweets Scope To Date `;
+
     var searchResults = document.getElementById("searchResults")
     searchResults.innerText = tweetArray.length + ": Total Tweets By Username: " + x
-
+    
     // if no tweets are found 
     if (tweetArray.length === 0){
       var noResults = document.getElementById("notweets")
@@ -139,6 +176,11 @@ async function getInput(e){
 
     var searchResults = document.getElementById("searchResults")
     searchResults.innerText = tweetArray.length + ": Total Tweets By hashtag: " + x
+   
+    totalTweets = await callUpdate();
+    console.log(totalTweets)
+    var total = document.getElementById("totalTweets");
+    total.innerText = `${totalTweets} Tweets Scope To Date `;
 
     // if no tweets are found 
     if (tweetArray.length === 0){
@@ -231,6 +273,11 @@ async function getInput(e){
     var searchResults = document.getElementById("searchResults")
     searchResults.innerText = tweetArray.length + ": Total Liked Tweets By Username: " + x
 
+    totalTweets = await callUpdate();
+    console.log(totalTweets)
+    var total = document.getElementById("totalTweets");
+    total.innerText = `${totalTweets} Tweets Scope To Date `;
+
     // if no tweets are found 
     if (tweetArray.length === 0){
       var noResults = document.getElementById("notweets")
@@ -312,53 +359,3 @@ async function getInput(e){
    }
 } // Ends Conditional Block
 
-
-const myNotification = window.createNotification({
-})
-
-myNotification({ 
-
-  // close on click
-  closeOnClick: true,
-
-  // displays close button
-  displayCloseButton: false,
-
-  // nfc-top-left
-  // nfc-bottom-right
-  // nfc-bottom-left
-  positionClass: 'nfc-top-right',
-
-  // callback
-  onclick: false,
-
-  // timeout in milliseconds
-  showDuration: 3500,
-
-  // success, info, warning, error, and none
-  theme: 'success'
-  
-});
-
-
-myNotification({ 
-  title: 'Title',
-  message: 'Notification Message' 
-});
-
-
-
-// Unknown JS Code
-var input = document.getElementsByTagName("input").value;
-console.log(input)
-
-
-input.addEventListener("keyup", function(event) {
-  // Number 13 is the "Enter" key on the keyboard
-  if (event.keyCode === 13) {
-    // Cancel the default action, if needed
-    event.preventDefault();
-    // Trigger the button element with a click
-    document.getElementById("submitButton").click();
-  }
-});

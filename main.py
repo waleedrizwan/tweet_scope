@@ -24,7 +24,11 @@ def index():
 
 @app.route('/faq')
 def faq():
-    return render_template('faq.html')    
+    return render_template('faq.html')
+
+@app.route('/update', methods=['POST', 'OPTIONS', 'GET'])
+def update():
+    return jsonify(str(totalTweetsScoped))
 
 # gets invoked when user makes HTTP post request to <url>/user/
 @app.route('/user', methods=['POST', 'OPTIONS', 'GET'])
@@ -32,6 +36,7 @@ def user():
    
     def userTweet(arg):
       print("User tweet func run")
+      global totalTweetsScoped
       # requires multiple authorization methods
       auth = tweepy.OAuthHandler(access_key, access_token)
       auth.set_access_token(secret_key, secret_token)
@@ -80,10 +85,11 @@ def user():
         tweetList.append(tweetDict)
       
       print("end of user tweet function")
+      totalTweetsScoped+= len(tweetList)
       return tweetList
       
     def byHashTag(hashtag):
-
+      global totalTweetsScoped
       auth = tweepy.OAuthHandler(access_key, access_token)
       auth.set_access_token(secret_key, secret_token)
 
@@ -116,11 +122,11 @@ def user():
         tweetDict['id'] = tweet.id_str
         tweetDict['verified'] = tweet.author.verified
         tweetList.append(tweetDict) 
-            
+      totalTweetsScoped+= len(tweetList)   
       return tweetList
 
     def byLikedTweets(username):
-
+      global totalTweetsScoped
       auth = tweepy.OAuthHandler(access_key, access_token)
       auth.set_access_token(secret_key, secret_token)
 
@@ -151,12 +157,12 @@ def user():
           tweetDict['id'] = tweet.id_str
           tweetDict['verified'] = tweet.author.verified
           tweetList.append(tweetDict)
-          
+      totalTweetsScoped+= len(tweetList)
       return tweetList
 
     username = request.args.get('username')
     selection = request.args.get('selection')
-   
+      
     # if user selects tweets by username, call userTweet Function
     if selection == "username":
       recentTweets = userTweet(username)

@@ -1,85 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Tweet Scope</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <link rel="stylesheet" href="/static/style.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="/static/index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="icon" href="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-4.png">
+    <script type="text/javascript">  
+          window.onload =  async function() {
+          totalTweets = await callUpdate();
+          console.log(totalTweets)
+          var total = document.getElementById("totalTweets");
+          total.innerText = `${totalTweets} Tweets Scope To Date `;
 
-<head>
-  <title>Tweet Scope</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="pragma" content="no-cache" />
-  <link rel="stylesheet" href="/static/style.css" type="text/css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="/static/index.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+        };
 
-<body class="jumbotron">
+      function changeFunc() {
+        var selectBox = document.getElementById("selectTag");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        
+        if (selectedValue === "Username") {
+          var searchType = document.getElementById("filterType");
+          searchType.innerText = "Finding Tweets from a specific username";
+        } else if (selectedValue === "Hashtag") {
+          var searchType = document.getElementById("filterType");
+          searchType.innerText = "Finding Tweets about a certain HashTag";
+        } else {
+          var searchType = document.getElementById("filterType");
+          searchType.innerText = "Finding Tweets Liked By a Specific User ";
+        }
+      }
+    </script>
+  </head>
 
-  <div class="text-center text-primary">
-    <p><a href="{{ url_for('faq') }}">About</a></p>
+  <body class="jumbotron">
+    <div class="text-center text-primary">
+      <p><a href="{{ url_for('faq') }}">About</a></p>
+      <br />
+      <h1>Tweet Scope v1.0<img src="https://image.flaticon.com/icons/png/128/3500/3500847.png"></h1>
+      <strong><div id="totalTweets"> Tweets Scoped To Date</div></strong>
+      <!-- Old Twitter Logo -->
+      <!-- <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center"> -->
+      <div id="contener">
+        <div id="inner" class="preloader">
+          <img
+            src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg"
+            alt="Paris"
+            class="center"
+            height="350"
+            width="350"
+          />
+        </div>
+        <br />
+      </div>
+    </div>
+    <strong
+      ><div id="filterType" class="text-center text-primary">Please Select A Filter First</div></strong>
+    <div class="jumbotron float-container text-primary">
+      <div class="float-child">
+        <select
+          id="selectTag"
+          class="form-control form-control-sm"
+          onchange="changeFunc();"
+        >
 
-    <a href="https://github.com/waleedrizwan"><small>open source & made with ❤️</small></a>
-    <br>
-    <h1>Tweet Scope v1.0</h1>
-    
-   <strong><div>___Total Tweets Scoped</div></strong> 
-    
-    <!-- Old Twitter Logo -->
-    <!-- <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center"> -->
-    <div id="contener">
-      <div id="inner" class="preloader">
-       <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center" height="350" width="350"  />
-     </div>
-   <br>
-   </div>
 
-  </div>
-
-  <div class="jumbotron float-container text-primary">
-    <div class="float-child">
-      <select id="selectTag" class="form-control form-control-sm">
         <option value="" disabled selected>Filter Tweets By</option>
         <option>Username</option>
         <option>Hashtag</option>
         <option>Liked Tweets By Username</option>
-      </select>
-    </div>
-    <div class="float-child text-primary">
-      <div class="form-group text-primary">
-        <input id="userinput" placeholder="Enter Username or Hashtag" maxlength="60" size="60">
+          <!-- <option value="" disabled selected>Filter Tweets By</option>
+          <option value="1">Username</option>
+          <option value="2">Hashtag</option>
+          <option value="3">Liked Tweets By Username</option> -->
+        </select>
       </div>
+      <div class="float-child text-primary">
+        <div class="form-group text-primary">
+          <input
+            id="userinput"
+            placeholder="Enter Username or Hashtag"
+            maxlength="60"
+            size="60"
+          />
+        </div>
+      </div>
+
+      <div class="float-child">
+        <button
+          type="button"
+          id="submitButton"
+          class="btn btn-primary"
+          onclick="JavaScript:getInput()"
+        >
+          Pull Tweets
+        </button>
+      </div>
+
+      <br />
+
+      <!-- closes float container class  -->
     </div>
 
-    <div class="float-child">
-      <button type="button" id="submitButton" class="btn btn-primary" onclick="JavaScript:getInput()">Pull Tweets</button>
-    </div>
+    <strong
+      ><div id="searchResults" class="text-center text-primary"></div
+    ></strong>
+    <br />
+    <table id="table" class="table text-primary table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Username</th>
+          <th>Full Tweet Text</th>
+          <th># of Favorites</th>
+          <th># of Retweets</th>
+        </tr>
+      </thead>
 
-    <br>
+      <tbody id="tablebody"></tbody>
+    </table>
 
-    <!-- closes float container class  -->
-  </div>
+    <strong><div id="notweets" class="text-center text-primary"></div></strong>
 
-  <strong><div id="searchResults" class="text-center text-primary"></div></strong>
-  <br>
-  <table id="table" class="table text-primary table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Username</th> 
-        <th>Full Tweet Text</th>
-        <th># of Favorites</th>
-        <th># of Retweets</th>
-      </tr>
-    </thead>
-    
-<tbody id="tablebody">
-
-</tbody>
-
-  </table>
-
-  <strong><div id="notweets" class="text-center text-primary"></div></strong>
-  
-
-
-</body>
+  </body>
+</html>

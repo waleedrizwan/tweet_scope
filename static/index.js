@@ -45,10 +45,8 @@ async function updateTotalTweets() {
   }
 }
 
-
-
 async function callUpdate(){
-  return await updateTotalTweets()
+  return formatNumber(await updateTotalTweets());
 }
 
 

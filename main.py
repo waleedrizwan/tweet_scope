@@ -72,7 +72,7 @@ def user():
         # Retweets Require the usage of retweeted_status to retreive the full text
         if(text[0:2]) == "RT":
           try:
-            weetDict['tweet'] = tweet.retweeted_status.full_text
+            tweetDict['tweet'] = tweet.retweeted_status.full_text
           except:
               print("Status Object Has No retweeted_status_Property")
 

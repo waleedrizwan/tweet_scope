@@ -76,10 +76,8 @@ def user():
         scores = []
 
         for tweet in userTweetList:
-
             # For each Tweet, holds date, text, username, favorite count, retweet count
             tweetDict = {}
-
             # Tweepy Status Object Attributes
             text = tweet.full_text  # full Tweet Text
             date = tweet.created_at  # Date Tweeted
@@ -168,13 +166,13 @@ def user():
         for tweet in favorites:
 
             tweetDict = {}
-            
+
             text = tweet.full_text
             tweetDict['tweet'] = text
             if(tweetDict['tweet']) == "RT":
                 try:
-                     text = tweet.retweeted_status.full_text
-                     tweetDict['tweet'] =  text   
+                    text = tweet.retweeted_status.full_text
+                    tweetDict['tweet'] = text
                 except:
                     print("Status Object Has No retweeted_status_Property")
             sentimentScore = sentiment_analyzer_scores(text)

@@ -8,9 +8,11 @@
         <meta http-equiv="pragma" content="no-cache" />
         <link rel="stylesheet" href="/static/style.css" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="/static/index.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link
+      rel="icon"
+      href="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-4.png"
+    />
       </head>
       
       <body class="jumbotron">
@@ -21,19 +23,59 @@
           
             <a href="https://github.com/waleedrizwan/tweet_scope"><small>open source made with ❤️</small></a>
           <br>
-          <h1>About</h1>
-            <p1 class="lead">This project was created to conduct sentiment analysis using tweets of individuals
-                as well as tweets regarding a specific subject. 
-                <br><br>
-                I believe that Twitter is 
-                a valuable source of information regarding emotion, opinions and it gives us an up to date mental status of the world. 
-                <br><br>
-                Given that
-                Twitter has millions of users of all backgrounds, it is the perfect resource for real-time global sentiment analysis.
-                <br><br>
-                To contribute fork the repo and make a pull request on the <a href="https://github.com/waleedrizwan/tweet_scope">found here</a>. Feel free to send me any suggestions.
+          <div >
+            <strong>
+              <h2><u>
+                About Sentiment Analysis
+              </u></h2>
+             </strong>             
+              <br>
+              <p1 class="font-weight-bold">
+                Sentiment Analysis, or Opinion Mining, is a sub-field of Natural Language Processing (NLP) that tries to identify and extract opinions within a given text. 
+                <br>
+                The aim of sentiment analysis is to gauge the attitude, sentiments, evaluations, attitudes and emotions of a speaker/writer based on the computational treatment of subjectivity in a text
+             <br><br>
+            This project uses the <strong>vaderSentiment </strong> Python package,<a href='https://github.com/cjhutto/vaderSentiment'><strong> Github Repo found here</strong></a>, to analyze text.
+            <br>
+            VADER (Valence Aware Dictionary and sentiment Reasoner) is a lexicon and rule-based sentiment analysis tool that is specifically attuned to sentiments expressed in social media.
+            <br>
+            VADER uses a combination of A sentiment lexicon is a list of lexical features (e.g., words) which are generally labelled according to their semantic orientation as either positive or negative.
+            <br>
+            VADER has been found to be quite successful when dealing with social media texts, NY Times editorials, movie reviews, and product reviews.
+            <br>
+            This is because VADER not only tells about the Positivity and Negativity score but also tells us about how positive or negative a sentiment is.
+              </p1>
+              <br><br>
+            <strong>
+              <ol class="list-group">
+                <li >Positive Sentiment Compound Score >= 0.05 </li>
+                <li >Negative Sentiment Compound Score <= -0.05 </li>
+                <li >Neutral Sentiment  0.05 < Compound Score > -0.05   </li>
+              </ol>
+            </strong> 
+            <p1>
+              The <strong>Compound Score</strong> is a metric that calculates the sum of all the lexicon ratings which have been normalized between -1 (most extreme negative) and +1 (most extreme positive).
             </p1>
+          </div>
+          <br><br>
+          <strong>
+            <h2><u>
+              About Tweet Scope
+            </u></h2>
+           </strong>  
+<div id='aboutProject'>
+  <p1 class="lead">This project was created to conduct sentiment analysis using tweets of individuals
+    as well as tweets regarding a specific subject. 
+</br>
+    I believe that Twitter is 
+    a valuable source of information regarding emotion, opinions and it gives us an up to date mental status of the world. 
+</br>
+    Given that
+    Twitter has millions of users of all backgrounds, it is the perfect resource for real-time global sentiment analysis.
+  </br>
 
-
+    To contribute fork the repo and make a pull request on the <a href="https://github.com/waleedrizwan/tweet_scope"> <strong>repo found here.</strong></a> Feel free to send me any suggestions.
+</p1>
+</div>
             
 </html>

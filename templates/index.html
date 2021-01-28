@@ -23,6 +23,8 @@
         console.log(totalTweets);
         var total = document.getElementById("totalTweets");
         total.innerText = `${totalTweets} Tweets Scope To Date `;
+        var searchType = document.getElementById("filterType");
+        searchType.innerText = "Please Select A Filter First";
       };
 
       function changeFunc() {
@@ -46,7 +48,6 @@
   <body class="jumbotron">
     <div class="text-center text-primary">
       <p><a href="{{ url_for('faq') }}">About</a></p>
-      <br />
       <h1>
         Tweet Scope v1.0<img
           src="https://image.flaticon.com/icons/png/128/3500/3500847.png"
@@ -54,9 +55,6 @@
       </h1>
 
       <strong><div id="totalTweets">Tweets Scoped To Date</div></strong>
-
-      <!-- Old Twitter Logo -->
-      <!-- <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center"> -->
       <div id="contener">
         <div id="inner" class="preloader">
           <img

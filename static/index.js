@@ -68,7 +68,7 @@ async function getInput(e) {
 
     var searchResults = document.getElementById("searchResults");
     searchResults.innerText =
-    tweetArray.length + ": Total Tweets By Username: " + x;
+    tweetArray.length + ": Total Tweets By Username: @" + x;
 
     // if no tweets are found
     if (tweetArray.length === 0) {
@@ -194,7 +194,7 @@ async function getInput(e) {
 
     var searchResults = document.getElementById("searchResults");
     searchResults.innerText =
-      tweetArray.length + ": Total Tweets By hashtag: " + x;
+      tweetArray.length + ": Total Tweets By hashtag: #" + x;
 
     totalTweets = await callUpdate();
     console.log(totalTweets);
@@ -321,7 +321,7 @@ async function getInput(e) {
 
     var searchResults = document.getElementById("searchResults");
     searchResults.innerText =
-    tweetArray.length + ": Total Liked Tweets By Username: " + x;
+    tweetArray.length + ": Total Liked Tweets By Username: @" + x;
 
     totalTweets = await callUpdate();
     console.log(totalTweets);

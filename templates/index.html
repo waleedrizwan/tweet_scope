@@ -13,20 +13,22 @@
     <script src="/static/index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="icon" href="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-4.png">
-    <script type="text/javascript">  
-          window.onload =  async function() {
-          totalTweets = await callUpdate();
-          console.log(totalTweets)
-          var total = document.getElementById("totalTweets");
-          total.innerText = `${totalTweets} Tweets Scope To Date `;
-
-        };
+    <link
+      rel="icon"
+      href="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-4.png"
+    />
+    <script type="text/javascript">
+      window.onload = async function () {
+        totalTweets = await callUpdate();
+        console.log(totalTweets);
+        var total = document.getElementById("totalTweets");
+        total.innerText = `${totalTweets} Tweets Scope To Date `;
+      };
 
       function changeFunc() {
         var selectBox = document.getElementById("selectTag");
         var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-        
+
         if (selectedValue === "Username") {
           var searchType = document.getElementById("filterType");
           searchType.innerText = "Finding Tweets from a specific username";
@@ -45,8 +47,14 @@
     <div class="text-center text-primary">
       <p><a href="{{ url_for('faq') }}">About</a></p>
       <br />
-      <h1>Tweet Scope v1.0<img src="https://image.flaticon.com/icons/png/128/3500/3500847.png"></h1>
-      <strong><div id="totalTweets"> Tweets Scoped To Date</div></strong>
+      <h1>
+        Tweet Scope v1.0<img
+          src="https://image.flaticon.com/icons/png/128/3500/3500847.png"
+        />
+      </h1>
+
+      <strong><div id="totalTweets">Tweets Scoped To Date</div></strong>
+
       <!-- Old Twitter Logo -->
       <!-- <img src="https://cdn.usbrandcolors.com/images/logos/twitter-logo.svg" alt="Paris" class="center"> -->
       <div id="contener">
@@ -62,8 +70,12 @@
         <br />
       </div>
     </div>
-    <strong
-      ><div id="filterType" class="text-center text-primary">Please Select A Filter First</div></strong>
+   
+   <kbd> <strong
+      ><h2 id="filterType" class="text-center text-primary">
+        Please Select A Filter First
+      </h2></strong
+    ></kbd>
     <div class="jumbotron float-container text-primary">
       <div class="float-child">
         <select
@@ -71,16 +83,11 @@
           class="form-control form-control-sm"
           onchange="changeFunc();"
         >
-
-
-        <option value="" disabled selected>Filter Tweets By</option>
-        <option>Username</option>
-        <option>Hashtag</option>
-        <option>Liked Tweets By Username</option>
-          <!-- <option value="" disabled selected>Filter Tweets By</option>
-          <option value="1">Username</option>
-          <option value="2">Hashtag</option>
-          <option value="3">Liked Tweets By Username</option> -->
+          <option value="" disabled selected>Filter Tweets By</option>
+          <option>Username</option>
+          <option>Hashtag</option>
+          <option>Liked Tweets By Username</option>
+      
         </select>
       </div>
       <div class="float-child text-primary">
@@ -110,9 +117,18 @@
       <!-- closes float container class  -->
     </div>
 
-    <strong
-      ><div id="searchResults" class="text-center text-primary"></div
-    ></strong>
+    <kbd
+      ><strong
+        ><h2 id="searchResults" class="text-center text-primary"></h2></strong
+    ></kbd>
+    <kbd>
+      <strong
+        ><h2
+          id="sentimentScore"
+          class="text-center text-primary"
+        ></h2></strong
+    ></kbd>
+
     <br />
     <table id="table" class="table text-primary table-bordered table-hover">
       <thead>
@@ -122,6 +138,7 @@
           <th>Full Tweet Text</th>
           <th># of Favorites</th>
           <th># of Retweets</th>
+          <th>Compound Sentiment Score</th>
         </tr>
       </thead>
 
@@ -129,6 +146,5 @@
     </table>
 
     <strong><div id="notweets" class="text-center text-primary"></div></strong>
-
   </body>
 </html>

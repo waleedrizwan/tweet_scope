@@ -1,6 +1,6 @@
 Site created using Vanilla JS and Flask. collaborator: @djoksimo.  
 
-This project uses the vaderSentiment Python package, Github Repo found here, to analyze text.
+This project uses the vaderSentiment Python package to analyze text.
 VADER (Valence Aware Dictionary and sentiment Reasoner) is a lexicon and rule-based sentiment analysis tool that is specifically attuned to sentiments expressed in social media.
 
 This project was created to conduct sentiment analysis using tweets of individuals as well as tweets regarding a specific subject.

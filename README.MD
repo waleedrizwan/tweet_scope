@@ -1,6 +1,6 @@
 Live at: https://tweet--scope.herokuapp.com/
 
-Site created using Vanilla JS and Flask. collaborator: @djoksimo.  
+Site created using Vanilla JS and Flask. credits to @djoksimo for the initial API functionality.  
 
 This project uses the vaderSentiment Python package to analyze text.
 VADER (Valence Aware Dictionary and sentiment Reasoner) is a lexicon and rule-based sentiment analysis tool that is specifically attuned to sentiments expressed in social media.

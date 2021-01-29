@@ -20,11 +20,12 @@ app = Flask(
     static_folder='static'  # Name of directory for static files)
 )
 
-# hide these on the server bro
-access_key = 'MdLc2PWvaUh4ZCQn0DJESoe4n'
-access_token = 'M7PqFUKvpV2MtnvvLRpo0mvg5ZDQgaa5JlavUxy5YgFlDONEeL'
-secret_key = '1309966965663035392-4YY7ERbSPWTFyPoAHwCQr0K7c0FtYC'
-secret_token = 'RPBhXHjoumebhiURAQ7D5HZtq2EaBFwHsoZKQxn7bBiXo'
+# API keys hidden for privacy
+
+access_key = ''
+access_token = ''
+secret_key = ''
+secret_token = ''
 
 
 # historic Count of Tweets

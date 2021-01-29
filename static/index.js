@@ -68,7 +68,7 @@ async function getInput(e) {
 
     var searchResults = document.getElementById("searchResults");
     searchResults.innerText =
-    tweetArray.length + ": Total Tweets By Username: @" + x;
+      tweetArray.length + ": Total Tweets By Username: @" + x;
 
     // if no tweets are found
     if (tweetArray.length === 0) {
@@ -78,7 +78,6 @@ async function getInput(e) {
     } else {
       var noResults = document.getElementById("notweets");
       noResults.innerText = "";
-      
     }
 
     if (tweetArray.length > 0) {
@@ -294,7 +293,6 @@ async function getInput(e) {
       sentiment.className = "tweet";
       sentiment.innerText = tweetArray[i]["sentiment"]["compound"];
 
-
       // adds columns to new row
       newRow.appendChild(date);
       newRow.appendChild(handle);
@@ -321,7 +319,7 @@ async function getInput(e) {
 
     var searchResults = document.getElementById("searchResults");
     searchResults.innerText =
-    tweetArray.length + ": Total Liked Tweets By Username: @" + x;
+      tweetArray.length + ": Total Liked Tweets By Username: @" + x;
 
     totalTweets = await callUpdate();
     console.log(totalTweets);
@@ -416,11 +414,10 @@ async function getInput(e) {
       retweetCount.className = "tweet";
       retweetCount.innerText = formatNumber(tweetArray[i]["retweets"]);
 
-
       // column for sentiment analysis
       var sentiment = document.createElement("td");
       sentiment.className = "tweet";
-      sentiment.innerText = tweetArray[i]["sentiment"]["compound"];   
+      sentiment.innerText = tweetArray[i]["sentiment"]["compound"];
 
       // adds columns to new row
       newRow.appendChild(date);
